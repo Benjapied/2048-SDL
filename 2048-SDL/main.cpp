@@ -22,7 +22,7 @@ int main(int argc, char** args)
     //-------------------
     //Initialisation SDL
     //-------------------
-
+    TTF_Init();
     SDL_Init(SDL_INIT_EVERYTHING);
 
     SDL_Surface* lantern0 = SDL_LoadBMP("img/lantern0.bmp");
@@ -59,7 +59,7 @@ int main(int argc, char** args)
     SDL_FreeSurface(textSurface);
 
     SDL_Surface* winText = TTF_RenderUTF8_Solid(font, u8"頂点に達した", { 255, 255, 255 });
-    SDL_Texture* tWinTextSurface = SDL_CreateTextureFromSurface(window.renderer, textSurface);
+    SDL_Texture* tWinTextSurface = SDL_CreateTextureFromSurface(window.renderer, winText);
     GameObject winTexture(tWinTextSurface, window.renderer, 500, 300, 700, 390);
     SDL_FreeSurface(winText);
 
