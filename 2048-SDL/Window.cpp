@@ -150,6 +150,7 @@ void Window::GameLoop(GameObject* background, GameObject* gridBack, GameObject**
 
         if (this->gGameGrid.Win() == true)
         {
+            //If we win, blit win screen and wait for escp key
             bFinishScreen = true;
             while (bFinishScreen) {
                 while (SDL_PollEvent(&event))
@@ -163,6 +164,7 @@ void Window::GameLoop(GameObject* background, GameObject* gridBack, GameObject**
                             break;
                         }
                     }
+                    //Rendering win screen
                     this->Clear();
                     finishArray[1]->Draw();
                     finishArray[3]->Draw();
@@ -173,6 +175,7 @@ void Window::GameLoop(GameObject* background, GameObject* gridBack, GameObject**
 
         if (this->gGameGrid.bIsFull == true && this->gGameGrid.noPossibility() == true)
         {
+            //If we lose, blit lose screen and wait for escp key
             bFinishScreen = true;
             while (bFinishScreen) {
                 while (SDL_PollEvent(&event))
@@ -186,6 +189,7 @@ void Window::GameLoop(GameObject* background, GameObject* gridBack, GameObject**
                             break;
                         }
                     }
+                    //Rendering lose screen
                     this->Clear();
                     finishArray[0]->Draw();
                     finishArray[2]->Draw();

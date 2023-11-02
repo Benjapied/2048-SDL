@@ -10,7 +10,7 @@ Case::Case(SDL_Texture** tArray, SDL_Texture* pTexture, SDL_Renderer* Renderer, 
 
 void Case::UpdateTexture()
 {
-    //Faire la valeur de l'indice via le ln
+    //Choose index by ln(value)
     if (this->iValue == 0) {
         this->tTexture = this->tArray[0];
         return;

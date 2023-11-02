@@ -41,7 +41,6 @@ void GameObject::SetTexture(SDL_Surface* Surface)
     this->tTexture = SDL_CreateTextureFromSurface(this->rRenderer, Surface);
 }
 
-
 void GameObject::UpdatePosition(int i)
 {
     this->SetPosition((640 + (i * 170)) - ((i / 4) * 170) * 4, 185 + ((i / 4) * 170));
