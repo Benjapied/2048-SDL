@@ -45,8 +45,6 @@ void Grid::InitGrid(SDL_Texture** tArray, SDL_Renderer* Renderer) {
     }
 }
 
-
-
 int Grid::Move(int x, int y, int xBase, int yBase, int directionX, int directionY)
 {
     int iNewX = x + directionX;
@@ -87,7 +85,7 @@ int Grid::Move(int x, int y, int xBase, int yBase, int directionX, int direction
 
 vector<int> Grid::ListEmptyCases()
 {
-    //Renvoie la liste des indices dont les valeurs sont 0
+    //Return list of index where values are equal 0
     vector<int> vAray;
 
     for (int i = 0; i < 16; i++)

@@ -25,7 +25,7 @@ public:
 
 	void Clear();
 
-	void GameLoop(GameObject* background, GameObject* gridBack, SDL_Texture** textureArray);
+	void GameLoop(GameObject* background, GameObject* gridBack, GameObject** finishArray);
 
 	void CheckCases(int i, int j, int iDirectionX, int iDirectionY);
 

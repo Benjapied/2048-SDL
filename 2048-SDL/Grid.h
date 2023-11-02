@@ -25,8 +25,6 @@ public:
 
     void InitGrid(SDL_Texture** tArray, SDL_Renderer* Renderer);
 
-    void DeleteGrid();
-
     int Move(int x, int y, int xBase, int yBase, int directionX, int directionY);
 
     std::vector<int> ListEmptyCases();

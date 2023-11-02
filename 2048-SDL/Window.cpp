@@ -61,19 +61,21 @@ void Window::Update() {
 
 void Window::Clear()
 {
-    SDL_SetRenderDrawColor(this->renderer, 0, 255, 255, 255);
+    SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->renderer);
 }
 
-void Window::GameLoop(GameObject* background, GameObject* gridBack, SDL_Texture** textureArray)
+void Window::GameLoop(GameObject* background, GameObject* gridBack, GameObject** finishArray)
 {
     int iScore = 0;
     bool bIsGame = true;
     bool isWin = false;
+    bool bFinishScreen = false;
 
     SDL_Event event;
     SDL_bool quit = SDL_FALSE;
 
+    this->gGameGrid.RandNumber();
     this->gGameGrid.RandNumber();
 
     while (!quit)
@@ -135,29 +137,62 @@ void Window::GameLoop(GameObject* background, GameObject* gridBack, SDL_Texture*
         background->Draw();
         gridBack->Draw();
 
+        this->gGameGrid.bIsFull = this->gGameGrid.isFull();
+
         for (int j = 0; j < 16; j++)
         {
             this->gGameGrid[j].Draw();
-        }
-
-        if (this->gGameGrid.Win() == true)
-        {
-            isWin = true;
-            break;
         }
 
         this->gGameGrid.MergeFalse();
 
         this->Update();
 
-    }
-    if (isWin == false)
-    {
-        std::cout << "You loose";
-    }
-    else
-    {
-        std::cout << "You won !";
+        if (this->gGameGrid.Win() == true)
+        {
+            bFinishScreen = true;
+            while (bFinishScreen) {
+                while (SDL_PollEvent(&event))
+                {
+                    if (event.type == SDL_KEYDOWN)
+                    {
+                        if (event.key.keysym.sym == SDLK_ESCAPE)
+                        {
+                            bFinishScreen = false;
+                            quit = SDL_TRUE;
+                            break;
+                        }
+                    }
+                    this->Clear();
+                    finishArray[1]->Draw();
+                    finishArray[3]->Draw();
+                    this->Update();
+                }
+            }
+        }
+
+        if (this->gGameGrid.bIsFull == true && this->gGameGrid.noPossibility() == true)
+        {
+            bFinishScreen = true;
+            while (bFinishScreen) {
+                while (SDL_PollEvent(&event))
+                {
+                    if (event.type == SDL_KEYDOWN)
+                    {
+                        if (event.key.keysym.sym == SDLK_ESCAPE)
+                        {
+                            bFinishScreen = false;
+                            quit = SDL_TRUE;
+                            break;
+                        }
+                    }
+                    this->Clear();
+                    finishArray[0]->Draw();
+                    finishArray[2]->Draw();
+                    this->Update();
+                }
+            }
+        }
     }
 };
 

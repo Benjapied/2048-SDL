@@ -1,10 +1,13 @@
-
+﻿
 #include "Window.h"
 #include "GameObject.h"
+#include "Test.h"
 
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
+
 
 // You shouldn't really use this statement, but it's fine for small programs
 using namespace std;
@@ -39,6 +42,28 @@ int main(int argc, char** args)
 
     const char* title = "2048";
     Window window(title, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    SDL_Surface* lose = SDL_LoadBMP("img/lose.bmp");
+    SDL_Texture* tLose = SDL_CreateTextureFromSurface(window.renderer, lose);
+    GameObject loseBackground(tLose, window.renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    SDL_Surface* win = SDL_LoadBMP("img/win.bmp");
+    SDL_Texture* tWin = SDL_CreateTextureFromSurface(window.renderer, win);
+    GameObject winBackground(tWin, window.renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    TTF_Font* font = TTF_OpenFont("font/851CHIKARA-DZUYOKU_kanaA_004.ttf", 512);
+
+    SDL_Surface* textSurface = TTF_RenderUTF8_Solid(font, u8"敗北した", { 255, 0, 0 });
+    SDL_Texture* tTextSurface = SDL_CreateTextureFromSurface(window.renderer, textSurface);
+    GameObject loseTexture(tTextSurface, window.renderer, 400, 200, 730, 290);
+    SDL_FreeSurface(textSurface);
+
+    SDL_Surface* winText = TTF_RenderUTF8_Solid(font, u8"頂点に達した", { 255, 255, 255 });
+    SDL_Texture* tWinTextSurface = SDL_CreateTextureFromSurface(window.renderer, textSurface);
+    GameObject winTexture(tWinTextSurface, window.renderer, 500, 300, 700, 390);
+    SDL_FreeSurface(winText);
+
+    GameObject* FinishArray[4] = { &loseBackground, &winBackground, &loseTexture, &winTexture };
     
     SDL_Texture* textureGrid[12];
     for (int i = 0; i < 12; i++) {
@@ -67,14 +92,15 @@ int main(int argc, char** args)
     //----------
     //Game Loop
     //----------
-    window.GameLoop(&background, &gridBack, textureGrid);
+    
+    //Test test(textureGrid, window.renderer);
+
+    window.GameLoop(&background, &gridBack, FinishArray);
 
     //Destroying TextureGrid and each elements
     for (int j = 0; j < 12; j++) {
         SDL_DestroyTexture(textureGrid[j]);
     }
-
-
 
     return 0;
 }
