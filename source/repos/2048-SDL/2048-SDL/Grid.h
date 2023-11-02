@@ -15,6 +15,8 @@ public:
 
     Grid();
 
+    ~Grid();
+
     int BiToMono(int x, int y);
 
     int* MonoToBi(int i);

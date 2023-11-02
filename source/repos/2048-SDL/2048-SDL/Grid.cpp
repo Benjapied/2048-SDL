@@ -11,6 +11,15 @@ Grid::Grid()
     this->iScore = 0;
 }
 
+Grid::~Grid()
+{
+    for (int i = 0; i < 16; i++) {
+        delete this->cGrid[i];
+    }
+    free(cGrid);
+
+};
+
 int Grid::BiToMono(int x, int y)
 {
     int result = y * 4 + x;
@@ -36,14 +45,7 @@ void Grid::InitGrid(SDL_Texture** tArray, SDL_Renderer* Renderer) {
     }
 }
 
-void Grid::DeleteGrid()
-{
-    for (int i = 0; i < 16; i++) {
-        delete this->cGrid[i];
-    }
-    free(cGrid);
 
-};
 
 int Grid::Move(int x, int y, int xBase, int yBase, int directionX, int directionY)
 {

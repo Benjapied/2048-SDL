@@ -45,24 +45,34 @@ int main(int argc, char** args)
         textureGrid[i] = SDL_CreateTextureFromSurface(window.renderer, surfaceGrid[i]);
     }
 
+    //Destroying SurfaceGrid and each elements
+    for (int j = 0; j < 12; j++) {
+        SDL_FreeSurface(surfaceGrid[j]);
+    }
+
     window.WindowGridInit(textureGrid);
 
     SDL_Surface* gridBackground = IMG_Load("img/grid-background.png");
     SDL_Texture* tgridBackground = SDL_CreateTextureFromSurface(window.renderer, gridBackground);
     GameObject gridBack(tgridBackground, window.renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+    SDL_FreeSurface(gridBackground);
 
     SDL_Surface* bg = SDL_LoadBMP("img/background.bmp");
     SDL_Texture* tBg = SDL_CreateTextureFromSurface(window.renderer, bg);
     GameObject background(tBg, window.renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+    SDL_FreeSurface(bg);
 
     
 
-    //-------------------
-    //Initialisation 2048
-    //-------------------
-
-    //Initialisation 
+    //----------
+    //Game Loop
+    //----------
     window.GameLoop(&background, &gridBack, textureGrid);
+
+    //Destroying TextureGrid and each elements
+    for (int j = 0; j < 12; j++) {
+        SDL_DestroyTexture(textureGrid[j]);
+    }
 
 
 

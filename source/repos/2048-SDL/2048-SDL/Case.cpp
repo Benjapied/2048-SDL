@@ -20,6 +20,4 @@ void Case::UpdateTexture()
     this->tTexture = this->tArray[iLogValue];
     return;
     
-    
-    
 }
