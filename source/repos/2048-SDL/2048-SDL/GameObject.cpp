@@ -2,15 +2,8 @@
 #include <SDL.h>
 #include <iostream>
 
-GameObject::GameObject(SDL_Surface* Surface, SDL_Renderer* Renderer, int w, int h, int x, int y)
+GameObject::GameObject(SDL_Texture* pTexture, SDL_Renderer* Renderer, int w, int h, int x/* = 0*/, int y/* = 0*/)
 {
-    SDL_Texture* pTexture = SDL_CreateTextureFromSurface(Renderer, Surface);
-    if (pTexture == NULL)
-    {
-        std::cout << "Error SDL_CreateTextureFromSurface :" << SDL_GetError();
-        exit(1);
-    }
-
     SDL_Rect rRect;
     rRect.x = x;
     rRect.y = y;
@@ -32,7 +25,7 @@ void GameObject::SetPosition(int x, int y)
     this->rRect.y = y;
 }
 
-void GameObject::SetSize(int w, int h) 
+void GameObject::SetSize(int w, int h)
 {
     this->rRect.w = w;
     this->rRect.h = h;
@@ -48,3 +41,8 @@ void GameObject::SetTexture(SDL_Surface* Surface)
     this->tTexture = SDL_CreateTextureFromSurface(this->rRenderer, Surface);
 }
 
+
+void GameObject::UpdatePosition(int i)
+{
+    this->SetPosition((640 + (i * 170)) - ((i / 4) * 170) * 4, 185 + ((i / 4) * 170));
+}

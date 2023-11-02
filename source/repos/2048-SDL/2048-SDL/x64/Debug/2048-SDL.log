@@ -1,2 +1,3 @@
-﻿  main.cpp
-  2048-SDL.vcxproj -> C:\Users\benar\source\repos\2048-SDL\x64\Debug\2048-SDL.exe
+﻿  Case.cpp
+C:\Users\barhancet\source\repos\2048-SDL\source\repos\2048-SDL\2048-SDL\Case.cpp(19,19): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+  2048-SDL.vcxproj -> C:\Users\barhancet\source\repos\2048-SDL\source\repos\2048-SDL\x64\Debug\2048-SDL.exe
